@@ -1,0 +1,26 @@
+{
+  "name": "10-oop-teamprofilegenerator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/va-lopez/10-OOP-TeamProfileGenerator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/va-lopez/10-OOP-TeamProfileGenerator/issues"
+  },
+  "homepage": "https://github.com/va-lopez/10-OOP-TeamProfileGenerator#readme",
+  "devDependencies": {
+    "inquirer": "^8.2.4",
+    "jest": "^28.1.3"
+  }
+}
