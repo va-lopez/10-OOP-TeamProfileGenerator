@@ -1,6 +1,6 @@
 const inquirer = require('inquirer');
 const generatePage = require('./src/page-template');
-const {writeFile,copyFile} = require('./utils/generate-site');
+const {writeFile} = require('./utils/generate-site');
 
 //employee classes
 const Manager = require('./lib/Manager.js');
@@ -11,8 +11,8 @@ const team = [];
 
 //ask questions for inquirer
 const managerQuestions = ["What is the team manager's name?","What is the team manager's id?","What is the team manager's email?", "What is the team manager's office number?"];
-const engineerQuestions = ["What is your engineer's name?","What is your engineer's id?","What is your engineer's email?", "What is your engineer's Github username?"];
-const internQuestions = ["What is the intern's name?","What is the intern's id?","What is the intern's email?", "What is the intern's school?"];
+const engineerQuestions = ["engineer","What is your engineer's name?","What is your engineer's id?","What is your engineer's email?", "What is your engineer's Github username?"];
+const internQuestions = ["intern","What is the intern's name?","What is the intern's id?","What is the intern's email?", "What is the intern's school?"];
 
 //begin by asking the manager for their general information
 const buildTeam = () => {
@@ -116,7 +116,7 @@ const getInfo = questions => {
         {
             type:'input',
             name: 'name',
-            message: questions[0],
+            message: questions[1],
             validate: nameInput =>{
                 if(nameInput){
                     return true;
@@ -130,7 +130,7 @@ const getInfo = questions => {
         {
             type:'input',
             name: 'id',
-            message: questions[1],
+            message: questions[2],
             validate: idInput =>{
                 if(idInput){
                     return true;
@@ -144,7 +144,7 @@ const getInfo = questions => {
         {
             type:'input',
             name: 'email',
-            message: questions[2],
+            message: questions[3],
             validate: emailInput =>{
                 if(emailInput){
                     return true;
@@ -158,7 +158,7 @@ const getInfo = questions => {
         {
             type:'input',
             name: 'extraInfo',
-            message: questions[3],
+            message: questions[4],
             validate: extraInput =>{
                 if(extraInput){
                     return true;
@@ -172,7 +172,7 @@ const getInfo = questions => {
       .then(projectData => {
         //create the employee and push into the team array
         const [name,id,email,extra] = Object.values(projectData);
-        if(projectData.addEmployee === "Engineer"){
+        if(questions[0] === "engineer"){
             const engineer = new Engineer(name,id,email,extra);
             team.push(engineer);
         }else{
@@ -185,16 +185,8 @@ const getInfo = questions => {
 
 //create the html file for the team
 const generateHTML = () => {
-    generatePage(team)
-    .then(generatedPage => {
-        return writeFile(pageHTML);
-    })
-    .then(writeFileResponse => {
-        return copyFile();
-    })
-    .catch(err => {
-        return console.log(err);
-    })
+    let data = generatePage(team);
+    let response = writeFile(data);
 }
 
 //start by getting manager info, then adding team info

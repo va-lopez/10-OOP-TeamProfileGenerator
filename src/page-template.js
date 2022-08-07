@@ -1,55 +1,47 @@
-//create html page using bootstrap
-const generateManager = manager => {
-    // console.log(manager);
-    return `
-        <div class="card " style="width: 18rem;">
-            <div class="card-header text-white bg-info">
-                ${manager.getName()}
-                ${manager.getRole()}
-            </div>
-            <div class="card-body bg-light">
-                <ul class = "list-group list-group-flush p-2 my-2 bg-white">
-                    ${manager.getId()}
-                    ${manager.getEmail()}
-                    ${manager.getOfficeNum()}
-                </ul>
-            </div>
-        </div>
-    `;
-};
-
+//create bootstrap cards using employee information
 const generateEmployees = employeeArray => {
-    const cardinfo = `
-        ${employeeArray.map(({employee}) => {
-            return `
-            <div class="card " style="width: 18rem;">
+    let extraInfo;
+
+    let html = employeeArray.map((employee) => {
+        extraInfo = generateExtraInfo(employee);
+        //fix the capitalization of entered name
+        let fixName = employee.getName().toLowerCase().split(" ");
+        for(let i=0; i<fixName.length; i++){
+            fixName[i] = fixName[i][0].toUpperCase()+fixName[i].substring(1);
+        }
+        let name = fixName.join(" ");
+
+        return `
+            <div class="card m-2" style="min-width: 18rem;">
                 <div class="card-header text-white bg-info">
-                    ${employee.getName()}
-                    ${employee.getRole()}
+                <h5 class="card-title">${name}</h5>
+                <h6 class = "card-subtitle mb-2"> ${employee.getRole()}</h6>
                 </div>
                 <div class="card-body bg-light">
                     <ul class = "list-group list-group-flush p-2 my-2 bg-white">
-                        ${employee.getId()}
-                        ${employee.getEmail()}
-                        ${employee.getGitHub()}
+                    <li class = 'list-group-item'>ID: ${employee.getId()}</li>
+                    <li class = 'list-group-item flex-wrap'>Email: <a href="mailto:${employee.getEmail()}">${employee.getEmail()}</a></li>
+                    ${extraInfo}
                     </ul>
                 </div>
             </div>
-            `;
-        })
-        .join('')}
-    `
+        `
+    }).join('');
+    return html;
+};
+
+//each type of employee includes a different kind of information at the end of their cards
+const generateExtraInfo = employee =>{
+    if(employee.getRole() === "Engineer")
+        return `<li class = 'list-group-item'>Github: <a href='https://github.com/${employee.getGithub()}'>${employee.getGithub()}</a></li>`;
+    else if(employee.getRole() === "Intern")
+        return `<li class = 'list-group-item'>School: ${employee.getSchool()}</li>`;
+    else if(employee.getRole() ==="Manager")
+        return `<li class = 'list-group-item'>Office number: ${employee.getOfficeNum()}</li>`;
 }
 
-
-
-module.exports = templateData =>{
-    // console.log(templateData);
-    //destructure page data by section
-    //const {manager,engineers} = templateData;
-    const {manager,employees} = templateData;
-    // console.log(manager);
-    // console.log(employees);
+//html for full page
+module.exports = employeeData =>{
     return `
     <!DOCTYPE html>
     <html lang="en">
@@ -66,16 +58,15 @@ module.exports = templateData =>{
     </head>
 
     <body>
-        <header class ="title">
-            <h1 class ="content "> My Team </h1>
+        <header class ="title col-12 bg-secondary py-2 text-center text-white">
+            <h1 class ="content mx-auto"> My Team </h1>
         </header>
-        <section id = "team">
-            ${generateManager(manager)}
-           
+        <section id = "team" class = "section container mt-4">
+            <div class = "card-deck d-flex justify-content-start flex-wrap">
+                ${generateEmployees(employeeData)}
+            </div>
         </section>
     </body>
     </html>
     `;
 };
-// ${generateEngineers(engineers)}
-// ${generateInterns(internInfo)}
