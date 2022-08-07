@@ -197,5 +197,6 @@ const generateHTML = () => {
     })
 }
 
+
 //start by getting manager info, then adding team info
 buildTeam();

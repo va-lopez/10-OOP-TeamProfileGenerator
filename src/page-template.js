@@ -1,6 +1,6 @@
 //create html page using bootstrap
 const generateManager = manager => {
-    console.log(manager);
+    // console.log(manager);
     return `
         <div class="card " style="width: 18rem;">
             <div class="card-header text-white bg-info">
@@ -44,12 +44,12 @@ const generateEmployees = employeeArray => {
 
 
 module.exports = templateData =>{
-    console.log(templateData);
+    // console.log(templateData);
     //destructure page data by section
     //const {manager,engineers} = templateData;
     const {manager,employees} = templateData;
-    console.log(manager);
-    console.log(employees);
+    // console.log(manager);
+    // console.log(employees);
     return `
     <!DOCTYPE html>
     <html lang="en">
