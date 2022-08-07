@@ -11,3 +11,13 @@ When any of the employees email address is selected, your defualt mail applicati
 Installation
 -First make sure to npm install.
 -Next make sure to install inquirer by typing in npm install inquirer in the terminal.
+
+Link to deployed application:
+No link to deployed application, after you run the application, an html will be generated into the dist folder. You can see the generated html file there. 
+
+Link to generated html: 
+https://github.com/va-lopez/10-OOP-TeamProfileGenerator/blob/main/dist/index.html
+
+Link to screenshot video: https://drive.google.com/file/d/18gZmepvDlS_tgERgjY6gtUfjx6Q0Hie-/view?usp=sharing
+
+![Main Page](/generatedhtml.PNG)
